@@ -84,7 +84,15 @@
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const ct = res.headers.get('content-type') || '';
     if (!ct.includes('json')) {
-      throw new Error('Instagram ha restituito HTML — assicurati di essere loggato su www.instagram.com');
+      const body = await res.text().catch(() => '');
+      console.warn('[IPC] Risposta non-JSON da Instagram:', { url, status: res.status, finalUrl: res.url, redirected: res.redirected, bodyPreview: body.slice(0, 300) });
+      if (res.url.includes('/accounts/login') || /name="loginForm"/i.test(body)) {
+        throw new Error('Sessione scaduta — rifai il login su www.instagram.com e riesegui lo script.');
+      }
+      if (/checkpoint|challenge|please wait a few minutes/i.test(body)) {
+        throw new Error('Instagram ha bloccato temporaneamente le richieste (rilevata attività sospetta) — attendi qualche minuto, poi riprova. Se persiste, aumenta la pausa tra i batch nelle Impostazioni.');
+      }
+      throw new Error('Instagram ha restituito HTML invece di JSON — assicurati di essere loggato su www.instagram.com (dettagli nella console).');
     }
     return res.json();
   }
