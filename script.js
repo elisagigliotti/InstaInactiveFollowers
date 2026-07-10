@@ -1073,3 +1073,4 @@
   console.log('%c📱 Instagram Profile Cleaner v2.0 caricato!', 'color:#833ab4;font-size:14px;font-weight:bold;');
   console.log('%cFunzionalità: Follower cleanup · Following cleanup · Interaction check · Export CSV · Whitelist · Safe Mode · Fan Score · Duplicati', 'color:#888;font-size:11px;');
 })();
+// cache-bust: 1783678961
