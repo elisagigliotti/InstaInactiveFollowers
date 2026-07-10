@@ -141,53 +141,53 @@
 
   const loadFollowers = uid =>
     fetchAllPages(
-      mid => apiGet(`https://i.instagram.com/api/v1/friendships/${uid}/followers/?count=200${mid ? `&max_id=${mid}` : ''}`),
+      mid => apiGet(`https://www.instagram.com/api/v1/friendships/${uid}/followers/?count=200${mid ? `&max_id=${mid}` : ''}`),
       n => setStatus(`📥 Follower: ${n}...`)
     );
 
   const loadFollowing = uid =>
     fetchAllPages(
-      mid => apiGet(`https://i.instagram.com/api/v1/friendships/${uid}/following/?count=200${mid ? `&max_id=${mid}` : ''}`),
+      mid => apiGet(`https://www.instagram.com/api/v1/friendships/${uid}/following/?count=200${mid ? `&max_id=${mid}` : ''}`),
       n => setStatus(`📥 Following: ${n}...`)
     );
 
   const getUserInfo = async uid => {
-    const d = await withRetry(() => apiGet(`https://i.instagram.com/api/v1/users/${uid}/info/`));
+    const d = await withRetry(() => apiGet(`https://www.instagram.com/api/v1/users/${uid}/info/`));
     return d.user;
   };
 
   const getLastPostDate = async uid => {
     try {
-      const d = await withRetry(() => apiGet(`https://i.instagram.com/api/v1/feed/user/${uid}/?count=1`));
+      const d = await withRetry(() => apiGet(`https://www.instagram.com/api/v1/feed/user/${uid}/?count=1`));
       const items = d.items || [];
       return items.length ? new Date(items[0].taken_at * 1000) : null;
     } catch { return null; }
   };
 
   const getMyPosts = async (uid, count = 12) => {
-    const d = await withRetry(() => apiGet(`https://i.instagram.com/api/v1/feed/user/${uid}/?count=${count}`));
+    const d = await withRetry(() => apiGet(`https://www.instagram.com/api/v1/feed/user/${uid}/?count=${count}`));
     return d.items || [];
   };
 
   const getPostLikers = async mediaId => {
     try {
-      const d = await withRetry(() => apiGet(`https://i.instagram.com/api/v1/media/${mediaId}/likers/`));
+      const d = await withRetry(() => apiGet(`https://www.instagram.com/api/v1/media/${mediaId}/likers/`));
       return d.users || [];
     } catch { return []; }
   };
 
   const getPostCommenters = async mediaId => {
     try {
-      const d = await withRetry(() => apiGet(`https://i.instagram.com/api/v1/media/${mediaId}/comments/?count=100`));
+      const d = await withRetry(() => apiGet(`https://www.instagram.com/api/v1/media/${mediaId}/comments/?count=100`));
       return (d.comments || []).map(c => c.user);
     } catch { return []; }
   };
 
   const removeFollower = uid =>
-    apiPost(`https://i.instagram.com/api/v1/friendships/remove_follower/${uid}/`, `user_id=${uid}`);
+    apiPost(`https://www.instagram.com/api/v1/friendships/remove_follower/${uid}/`, `user_id=${uid}`);
 
   const unfollow = uid =>
-    apiPost(`https://i.instagram.com/api/v1/friendships/destroy/${uid}/`, `user_id=${uid}`);
+    apiPost(`https://www.instagram.com/api/v1/friendships/destroy/${uid}/`, `user_id=${uid}`);
 
   // ══════════════════════════════════════════════
   // UTILITY
@@ -1073,4 +1073,3 @@
   console.log('%c📱 Instagram Profile Cleaner v2.0 caricato!', 'color:#833ab4;font-size:14px;font-weight:bold;');
   console.log('%cFunzionalità: Follower cleanup · Following cleanup · Interaction check · Export CSV · Whitelist · Safe Mode · Fan Score · Duplicati', 'color:#888;font-size:11px;');
 })();
-// cache-bust: 1783678961
