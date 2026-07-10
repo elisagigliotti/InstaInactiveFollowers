@@ -594,7 +594,7 @@
     const safe = safeModeRemaining();
     root.innerHTML = `
       <div id="ipc-header">
-        <div><h2>📱 Instagram Profile Cleaner</h2><small>v2.0 · Pulisci follower e following</small></div>
+        <div><h2>📱 Instagram Profile Cleaner</h2><small>v4.0 · Pulisci follower e following</small></div>
         <div id="ipc-hright">
           <button class="ipc-icon-btn" id="ipc-wl-export" title="Esporta whitelist">🤍</button>
           <button class="ipc-icon-btn" id="ipc-wl-import" title="Importa whitelist">📂</button>
@@ -820,5 +820,5 @@
   }
 
   buildUI();
-  console.log('%c📱 Instagram Profile Cleaner v2.0 caricato!', 'color:#833ab4;font-size:14px;font-weight:bold;');
+  console.log('%c📱 Instagram Profile Cleaner v4.0 caricato!', 'color:#833ab4;font-size:14px;font-weight:bold;');
 })();
