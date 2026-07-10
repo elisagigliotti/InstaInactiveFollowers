@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Inactive Followers</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      width: 100%;
+      background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+      padding: 60px 20px 80px;
+      text-align: center;
+    }
+    .hero-icon { font-size: 56px; margin-bottom: 16px; display: block; }
+    .hero h1 {
+      font-size: clamp(24px, 5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 32px;
+      width: 100%;
+      max-width: 680px;
+      margin: -36px 20px 32px;
+    }
+
+    /* ── COPY SECTION ── */
+    .copy-section { margin-bottom: 28px; }
+    .copy-section h2 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+    .code-box {
+      background: #0d0d0d;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .code-box pre {
+      padding: 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      color: #a0a0a0;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 160px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .copy-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 12px;
+      letter-spacing: 0.3px;
+    }
+    .copy-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .copy-btn:active { transform: translateY(0); }
+    .copy-btn.copied { background: #1a7a3c; }
+
+    /* ── STEPS ── */
+    .steps h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .step-num {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-text { font-size: 14px; color: #ccc; line-height: 1.6; padding-top: 5px; }
+    .step-text code {
+      background: #222; border: 1px solid #333;
+      border-radius: 5px; padding: 1px 6px;
+      font-family: monospace; font-size: 12px; color: #e0e0e0;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 20px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .feature {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .feature-icon { font-size: 24px; margin-bottom: 8px; }
+    .feature h3 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .feature p { font-size: 12px; color: #888; line-height: 1.5; }
+
+    /* ── WARNING ── */
+    .warning {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 20px 40px;
+      background: #1a1200;
+      border: 1px solid #4a3800;
+      border-radius: 14px;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #c9a227;
+      line-height: 1.6;
+    }
+    .warning strong { color: #f0c040; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      border-top: 1px solid #1a1a1a;
+      width: 100%;
+    }
+    footer a { color: #666; text-decoration: none; }
+    footer a:hover { color: #aaa; }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <span class="hero-icon">📱</span>
+    <div class="badge">Browser Tool · No install required</div>
+    <h1>Instagram Inactive Followers</h1>
+    <p>Trova e rimuovi i follower che non postano più o sono inattivi da mesi. Funziona direttamente nel browser, nessun download necessario.</p>
+  </div>
+
+  <div class="card">
+    <div class="copy-section">
+      <h2>1. Copia il codice</h2>
+      <div class="code-box">
+        <pre id="script-preview">Caricamento...</pre>
+      </div>
+      <button class="copy-btn" id="copy-btn">⎘ COPY</button>
+    </div>
+
+    <div class="steps">
+      <h2>Come usarlo</h2>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Clicca <strong>COPY</strong> qui sopra per copiare il codice.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Vai su <strong>instagram.com</strong> e accedi al tuo account.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Apri la console del browser:<br>
+          Windows: <code>Ctrl + Shift + J</code> &nbsp;·&nbsp; Mac: <code>⌘ + ⌥ + J</code>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Incolla il codice e premi <code>Invio</code>. Apparirà il pannello — clicca <strong>RUN</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">👻</div>
+      <h3>Account fantasma</h3>
+      <p>Trova follower con 0 post in pochissimi secondi.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💤</div>
+      <h3>Account inattivi</h3>
+      <p>Identifica chi non posta da 3 mesi, 6 mesi, 1 anno o più.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🤍</div>
+      <h3>Whitelist</h3>
+      <p>Proteggi gli account che vuoi mantenere. Salvata nel browser.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Privato</h3>
+      <p>Nessun server esterno. Tutto avviene tra il tuo browser e Instagram.</p>
+    </div>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Attenzione</strong> — Questo tool non è affiliato con Instagram/Meta. Usalo a tuo rischio. Evita di rimuovere troppi follower in poco tempo per non incorrere in limitazioni temporanee da parte di Instagram.
+  </div>
+
+  <footer>
+    <a href="https://github.com/elisagigliotti/InstaInactiveFollowers">GitHub</a> ·
+    MIT License · Non affiliato con Instagram/Meta
+  </footer>
+
+  <script>
+    const SCRIPT_URL = 'script.js';
+    let scriptContent = '';
+
+    fetch(SCRIPT_URL)
+      .then(r => r.text())
+      .then(text => {
+        scriptContent = text;
+        // Mostra anteprima troncata
+        const preview = document.getElementById('script-preview');
+        const lines = text.split('\n').slice(0, 8).join('\n');
+        preview.textContent = lines + '\n// ... (' + text.split('\n').length + ' righe totali)';
+      })
+      .catch(() => {
+        document.getElementById('script-preview').textContent = '// Errore nel caricamento. Clicca COPY per riprovare.';
+      });
+
+    document.getElementById('copy-btn').addEventListener('click', async () => {
+      if (!scriptContent) {
+        // Prova a ricaricare
+        try {
+          const r = await fetch(SCRIPT_URL);
+          scriptContent = await r.text();
+        } catch {
+          alert('Errore nel caricamento dello script. Prova a ricaricare la pagina.');
+          return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(scriptContent);
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = '✓ COPIATO!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '⎘ COPY';
+          btn.classList.remove('copied');
+        }, 2500);
+      } catch {
+        // Fallback per browser senza clipboard API
+        const ta = document.createElement('textarea');
+        ta.value = scriptContent;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        const btn = document.getElementById('copy-btn');
+        btn.textContent = '✓ COPIATO!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '⎘ COPY'; btn.classList.remove('copied'); }, 2500);
+      }
+    });
+  </script>
+</body>
+</html>
