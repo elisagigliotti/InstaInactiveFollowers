@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📱 Instagram Inactive Followers
 
 A browser-based tool to find and remove inactive followers on Instagram — no downloads or installations required.
@@ -46,3 +47,6 @@ This tool is **not affiliated** with Instagram or Meta. Use at your own risk. Av
 ## License
 
 MIT — free to use, copy, and modify.
+=======
+# InstaInactiveFollowers
+>>>>>>> c6242d23ee1eea76e7ee074e73347334b2c1e04d
