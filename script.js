@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  📱 Instagram Profile Cleaner  v3.0 
+ *  📱 Instagram Profile Cleaner  v2.0
  * ============================================================
  * Pulisci follower e following in modo intelligente.
  *
@@ -74,7 +74,10 @@
   const HEADERS = {
     'x-csrftoken': getCookie('csrftoken'),
     'x-ig-app-id': '936619743392459',
+    'x-ig-www-claim': getCookie('ig-www-claim') || '0',
+    'x-asbd-id': '129477',
     'x-requested-with': 'XMLHttpRequest',
+    'accept': '*/*',
   };
 
   const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -83,6 +86,10 @@
     const res = await fetch(url, { headers: HEADERS, credentials: 'include' });
     if (res.status === 429) throw new Error('RATE_LIMIT');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const ct = res.headers.get('content-type') || '';
+    if (!ct.includes('json')) {
+      throw new Error('Instagram ha restituito HTML invece di JSON — assicurati di essere loggato su www.instagram.com');
+    }
     return res.json();
   }
 
