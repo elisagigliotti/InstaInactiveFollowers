@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  📱 Instagram Profile Cleaner  v2.0 
+ *  📱 Instagram Profile Cleaner  v3.0 
  * ============================================================
  * Pulisci follower e following in modo intelligente.
  *
